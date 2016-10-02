@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     //set view frame programmatically
     //resizing the content mode does not work with constraints
     self.view.frame = [UIScreen mainScreen].bounds;
@@ -28,10 +29,14 @@
     [self downloadJSON];
     
     //add orientation change notification
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self selector:@selector(changeOrientation)
-     name:UIDeviceOrientationDidChangeNotification
-     object:[UIDevice currentDevice]];
+    //only for ipad
+    //disabled for iphone since the pictures grow far too large
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ){
+        [[NSNotificationCenter defaultCenter]
+         addObserver:self selector:@selector(changeOrientation)
+         name:UIDeviceOrientationDidChangeNotification
+         object:[UIDevice currentDevice]];
+    }
 }
 
 -(void)downloadJSON{
